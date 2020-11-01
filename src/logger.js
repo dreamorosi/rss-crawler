@@ -1,15 +1,26 @@
 import winston from 'winston';
 
-const customFormat = winston.format.printf(
+const prodFormat = winston.format.printf(
   ({ level, message, timestamp, service }) => {
     return `${timestamp} ${level.toUpperCase()} - ${service} - ${message}`;
   }
 );
 
-const logger = winston.createLogger({
+const devFormat = winston.format.printf(({ level, message, service }) => {
+  if (message instanceof Object) {
+    return `${level.toUpperCase()} - ${service} - ${JSON.stringify(
+      message,
+      null,
+      2
+    )}`;
+  } else {
+    return `${level.toUpperCase()} - ${service} - ${message}`;
+  }
+});
+
+const logging = winston.createLogger({
   level: 'info',
-  format: winston.format.combine(winston.format.timestamp(), customFormat),
-  defaultMeta: { service: 'main' },
+  format: winston.format.combine(winston.format.timestamp(), prodFormat),
   transports: [
     new winston.transports.File({ filename: 'error.log', level: 'error' }),
     new winston.transports.File({ filename: 'combined.log' }),
@@ -17,11 +28,11 @@ const logger = winston.createLogger({
 });
 
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(
+  logging.add(
     new winston.transports.Console({
-      format: winston.format.simple(),
+      format: devFormat,
     })
   );
 }
 
-export default logger;
+export default logging;

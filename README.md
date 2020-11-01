@@ -30,7 +30,8 @@ VSCode configuration at `.vscode/launch.json`.
                 "<node_internals>/**"
             ],
             "runtimeVersion": "14.15.0",
-            "program": "${workspaceFolder}/src/index.js"
+            "program": "${workspaceFolder}/src/index.js",
+            "outputCapture": "std",
         }
     ]
 }
