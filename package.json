@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/dreamorosi/rss-crawler/issues"
   },
-  "homepage": "https://github.com/dreamorosi/rss-crawler#readme"
+  "homepage": "https://github.com/dreamorosi/rss-crawler#readme",
+  "dependencies": {
+    "winston": "^3.3.3"
+  }
 }
