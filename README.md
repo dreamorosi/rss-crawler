@@ -32,6 +32,11 @@ VSCode configuration at `.vscode/launch.json`.
             "runtimeVersion": "14.15.0",
             "program": "${workspaceFolder}/src/index.js",
             "outputCapture": "std",
+            "internalConsoleOptions": "openOnSessionStart",
+            "env": {
+                "RSS_CRAWLER_LOG_LEVEL": "DEBUG",
+                "RSS_CRAWLER_ENVIRONMENT": "DEV",
+            }
         }
     ]
 }

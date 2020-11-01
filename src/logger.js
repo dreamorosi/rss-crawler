@@ -19,7 +19,7 @@ const devFormat = winston.format.printf(({ level, message, service }) => {
 });
 
 const logging = winston.createLogger({
-  level: 'info',
+  level: process.env.RSS_CRAWLER_LOG_LEVEL.toLowerCase() || 'info',
   format: winston.format.combine(winston.format.timestamp(), prodFormat),
   transports: [
     new winston.transports.File({ filename: 'error.log', level: 'error' }),
@@ -27,7 +27,7 @@ const logging = winston.createLogger({
   ],
 });
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.RSS_CRAWLER_ENVIRONMENT.toUpperCase() === 'DEV') {
   logging.add(
     new winston.transports.Console({
       format: devFormat,
