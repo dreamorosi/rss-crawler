@@ -17,7 +17,24 @@ NodeJS daemon that periodically parses a RSS feed and based on a list of watched
 ```
 
 ## Develop
-
+VSCode configuration at `.vscode/launch.json`.
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeVersion": "14.15.0",
+            "program": "${workspaceFolder}/src/index.js"
+        }
+    ]
+}
+```
 
 ## License
 
