@@ -19,6 +19,7 @@
   "homepage": "https://github.com/dreamorosi/rss-crawler#readme",
   "dependencies": {
     "node-fetch": "^2.6.1",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "xml2js": "^0.4.23"
   }
 }

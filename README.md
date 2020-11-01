@@ -8,12 +8,41 @@ NodeJS daemon that periodically parses a RSS feed and based on a list of watched
 ## Specs
 
 ### RSS Schema
-
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:tv="http://my-rss-feed.com">
+    <channel>
+        <title>Feed Title</title>
+        <link>http://my-rss-feed.com</link>
+        <ttl>30</ttl>
+        <description>Feed Description</description>
+        <item>
+            <title>Show Name S01E01</title>
+            <link>some_url:?ABCDEFGHILMNOPQRSTUVWZYZ</link>
+            <guid isPermaLink="false">96c0f2a6dc843b7ef08eb3c17266cf348ab3e16c</guid>
+            <pubDate>Fri, 30 Oct 2020 09:50:17 +0000</pubDate>
+            <description>New episode: Show Name S01E01</description>
+            <tv:show_id>1234</tv:show_id>
+            <tv:external_id>98765</tv:external_id>
+            <tv:show_name>Show Name</tv:show_name>
+            <tv:episode_id>7654</tv:episode_id>
+            <tv:raw_title>Show Name S01E01</tv:raw_title>
+            <tv:info_hash>ABCDEFGHILMNOPQRSTUVWZYZ</tv:info_hash>
+            <enclosure url="some_url:?ABCDEFGHILMNOPQRSTUVWZYZ" length="0" type="application/mime" />
+        </item>
+    </channel>
+</rss>
+```
 ### SQLite Schema
 
 ### Output Message Schema
 ```json
-
+{
+    "name": "Show Name",
+    "link":"some_url:?ABCDEFGHILMNOPQRSTUVWZYZ",
+    "show":"1234",
+    "guid":"96c0f2a6dc843b7ef08eb3c17266cf348ab3e16c"
+}
 ```
 
 ## Develop
