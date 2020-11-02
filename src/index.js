@@ -13,8 +13,8 @@ import queue from './queue.js';
     let feedContentText = await request();
     let items = await parser(feedContentText);
     let newItems = await store(items);
-    if (newItems.length > 0){
-      await queue(newItems)
+    if (newItems.length > 0) {
+      await queue(newItems);
     }
   } catch {
     process.exit(1);

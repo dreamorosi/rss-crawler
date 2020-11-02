@@ -1,10 +1,10 @@
-import PosixMQ from 'posix-mq'
+import PosixMQ from 'posix-mq';
 
 import logging from './logger.js';
 
 const queue = async (items) => {
   let logger = logging.child({ service: 'queue' });
-  const mq = new PosixMQ()
+  const mq = new PosixMQ();
 
   logger.info('Opening output queue.');
   try {
@@ -12,20 +12,20 @@ const queue = async (items) => {
       name: process.env.RSS_CRAWLER_FEED_OUTPUT_QUEUE,
       create: true,
       mode: '0777',
-      maxmsgs: 10
-    })  
+      maxmsgs: 10,
+    });
   } catch (error) {
     logger.error('Unable to open output queue.');
     logger.debug(error);
     throw Error;
   }
 
-  logger.info('Pushing messages to the queue.')
+  logger.info('Pushing messages to the queue.');
   try {
-    items.forEach(item => {
-      mq.push(item.string)
-      logger.info(`Item with id ${item.guid} sent successfully.`)
-    })
+    items.forEach((item) => {
+      mq.push(item.string);
+      logger.info(`Item with id ${item.guid} sent successfully.`);
+    });
   } catch (error) {
     logger.error('Unable to push messages to output queue.');
     logger.debug(error);
@@ -34,14 +34,14 @@ const queue = async (items) => {
 
   logger.info('Closing output queue.');
   try {
-    mq.close()
+    mq.close();
   } catch (error) {
     logger.error('Unable to close output queue.');
     logger.debug(error);
     throw Error;
   }
 
-  return
-}
+  return;
+};
 
 export default queue;
