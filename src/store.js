@@ -16,15 +16,20 @@ const store = async (items) => {
     watchList = await db.get('watched_items');
   } catch (error) {
     if (error.notFound) {
-      logger.error('Unable to load watch list.');
+      logger.warn('No watch list found, tracking all shows.');
+      watchList = [];
+    } else {
+      logger.error('Unable to query db for watch list.');
+      logger.debug(error);
+      throw Error;
     }
-    logger.debug(error);
-    throw Error;
   }
 
   const promises = await items.map(async (item) => {
     try {
-      assert.notStrictEqual(watchList.indexOf(item.show), -1);
+      if (watchList.length > 0) {
+        assert.notStrictEqual(watchList.indexOf(item.show), -1);
+      }
       await db.get(item.guid);
     } catch (error) {
       if (error instanceof AssertionError) {
@@ -55,7 +60,7 @@ const store = async (items) => {
   logger.info(
     `Found ${newItems.length} new item${newItems.length === 1 ? '' : 's'}.`
   );
-  return newItems
+  return newItems;
 };
 
 export default store;
