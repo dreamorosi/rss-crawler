@@ -33,7 +33,14 @@ NodeJS daemon that periodically parses a RSS feed and based on a list of watched
     </channel>
 </rss>
 ```
-### SQLite Schema
+### LevelDB
+Service checks for an entry in DB to keep track of watched shows:
+```json
+{
+    "watched_items": ["1234"]
+}
+```
+If none is found, all shows are tracked.
 
 ### Output Message Schema
 ```json
@@ -65,6 +72,8 @@ VSCode configuration at `.vscode/launch.json`.
             "env": {
                 "RSS_CRAWLER_LOG_LEVEL": "DEBUG",
                 "RSS_CRAWLER_ENVIRONMENT": "DEV",
+                "RSS_CRAWLER_FEED_URL": "http://my-rss-feed.com/user/111111.rss",
+                "RSS_CRAWLER_FEED_OUTPUT_QUEUE": "/showsqueue"
             }
         }
     ]
