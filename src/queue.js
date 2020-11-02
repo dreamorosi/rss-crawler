@@ -1,5 +1,7 @@
 import PosixMQ from 'posix-mq'
 
+import logging from './logger.js';
+
 const queue = async (items) => {
   let logger = logging.child({ service: 'queue' });
   const mq = new PosixMQ()
