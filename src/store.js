@@ -5,7 +5,7 @@ import assert, { AssertionError } from 'assert';
 
 import logging from './logger.js';
 
-const dbPath = process.env.RSS_CRAWLER_DB_PATH || './mydb';
+const dbPath = process.env.RSS_CRAWLER_DB_PATH || './myDb';
 const db = levelup(encode(leveldown(dbPath), { valueEncoding: 'json' }));
 
 const store = async (items) => {
@@ -53,8 +53,9 @@ const store = async (items) => {
   });
 
   logger.info(
-    `Found ${newItems.length} new item${newItems.length > 1 ? 's' : ''}.`
+    `Found ${newItems.length} new item${newItems.length === 1 ? '' : 's'}.`
   );
+  return newItems
 };
 
 export default store;
