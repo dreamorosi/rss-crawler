@@ -79,6 +79,38 @@ VSCode configuration at `.vscode/launch.json`.
     ]
 }
 ```
+### Dev Container
+`.devcontainer/Dockerfile`
+```dockerfile
+ARG VARIANT="14-buster"
+FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+
+RUN mkdir ~/.npm-global && \
+    npm config set prefix '~/.npm-global' && \
+    echo "export PATH=~/.npm-global/bin:$PATH" >> ~/.profile
+
+ARG EXTRA_NODE_VERSION=14.15.0
+RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
+```
+`.devcontainer/devcontainer.json`
+```json
+{
+	"name": "Node.js",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"visualstudioexptteam.vscodeintellicode"
+	],
+	"postCreateCommand": "npm install"
+}
+```
+
 
 ## License
 
