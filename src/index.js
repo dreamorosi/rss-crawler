@@ -1,6 +1,7 @@
 import logging from './logger.js';
 import request from './request.js';
 import parser from './xml-parser.js';
+import store from './store.js';
 
 (async () => {
   let logger = logging.child({ service: 'main' });
@@ -12,6 +13,7 @@ import parser from './xml-parser.js';
   try {
     feedContentText = await request();
     items = await parser(feedContentText);
+    let newItems = await store(items);
   } catch {
     process.exit(1);
   }
